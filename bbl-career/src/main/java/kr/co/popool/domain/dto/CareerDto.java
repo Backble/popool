@@ -24,7 +24,7 @@ public  class CareerDto {
 
         @ApiModelProperty(example = "평가등급")
         @Enumerated(EnumType.STRING)
-        private ScoreGrade grade;
+        private String grade;
 
         @ApiModelProperty(example = "이름")
         @NotBlank(message = "이름를 입력해주세요.")

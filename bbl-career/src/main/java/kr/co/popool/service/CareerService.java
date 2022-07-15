@@ -16,4 +16,6 @@ public interface CareerService {
 
     CareerEntity newCareer(CareerDto.CREATE newCareer);
 
+
+
 }

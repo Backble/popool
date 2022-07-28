@@ -1,11 +1,13 @@
 package kr.co.popool.bblpayment.domain.entity;
 
+import kr.co.popool.bblcommon.util.TimestampUtil;
 import kr.co.popool.bblpayment.domain.shared.BaseEntity;
 import kr.co.popool.bblpayment.domain.shared.enums.CouponPeriod;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.Instant;
 
 @Getter
 @Table(name = "tbl_inventory")
@@ -21,7 +23,7 @@ public class InventoryEntity extends BaseEntity {
 
     //TODO: TIMESTAMP로 변경
     @Column(nullable = false)
-    private LocalDate endPeriodDate;
+    private Timestamp endPeriodDate;
 
     @Column(nullable = false)
     private boolean isSubscription;
@@ -42,19 +44,20 @@ public class InventoryEntity extends BaseEntity {
 
     //== period ==//
     public boolean isPeriodValid() {
-        if (endPeriodDate.isAfter(LocalDate.now()) || endPeriodDate.isEqual(LocalDate.now()))
+        if (endPeriodDate.before(Timestamp.from(Instant.now())) || endPeriodDate.equals(Timestamp.from(Instant.now())))
             return true;
         return false;
     }
 
     public void addPeriod(CouponPeriod couponPeriod) {
         if (isPeriodValid()) {
-            this.endPeriodDate = this.endPeriodDate.plusMonths(couponPeriod.getPeriod());
+            this.endPeriodDate = TimestampUtil.addMonths(this.endPeriodDate, couponPeriod.getPeriod());
         }
         else {
-            this.endPeriodDate = LocalDate.now().plusMonths(couponPeriod.getPeriod());
+            this.endPeriodDate = TimestampUtil.addMonths(Timestamp.from(Instant.now()), couponPeriod.getPeriod());
         }
     }
+
 
     //TODO: if 없이 코딩하기
     //TODO: COMMON 모듈 ERROR 정의

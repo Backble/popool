@@ -37,4 +37,12 @@ public class CorporateEntity extends BaseEntity {
         this.businessName = update_corporate.getBusinessName();
         this.businessNumber = update_corporate.getBusinessNumber();
     }
+
+    public static CorporateEntity of(CorporateDto.CREATE_CORPORATE create_corporate) {
+        return CorporateEntity.builder()
+                .ceoName(create_corporate.getCeoName())
+                .businessName(create_corporate.getBusinessName())
+                .businessNumber(create_corporate.getBusinessNumber())
+                .build();
+    }
 }

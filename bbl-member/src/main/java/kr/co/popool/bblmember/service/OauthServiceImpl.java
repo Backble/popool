@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
@@ -41,28 +43,10 @@ public class OauthServiceImpl implements OauthService{
 
     @Override
     public void saveAdditionalMemberInfo(OauthDto.CREATE create) {
-        if (!memberService.checkIdentity(create.getIdentity())) {
-            throw new DuplicatedException(ErrorCode.DUPLICATED_ID);
-        }
 
-        if (!create.getPassword().equals(create.getCheckPassword())) {
-            throw new BadRequestException("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-        }
+        memberService.checkSignUp(create);
 
-        if (!memberService.checkPhone(new Phone(create.getPhone()))) {
-            throw new DuplicatedException(ErrorCode.DUPLICATED_PHONE);
-        }
-
-        MemberEntity memberEntity = MemberEntity.builder()
-                .identity(create.getIdentity())
-                .password(passwordEncoder.encode(create.getPassword()))
-                .birth(create.getBirth())
-                .phone(new Phone(create.getPhone()))
-                .gender(Gender.of(create.getGender()))
-                .memberRank(MemberRank.of(create.getMemberRank()))
-                .memberRole(MemberRole.of(create.getMemberRole()))
-                .corporateEntity(null)
-                .build();
+        MemberEntity memberEntity = MemberEntity.of(create, passwordEncoder, null);
 
         memberEntity.saveOauth(create.getEmail(), create.getProvider(), create.getName());
 
@@ -104,10 +88,15 @@ public class OauthServiceImpl implements OauthService{
                 .build();
     }
 
-    @Override
-    public OauthDto.TOKEN_INFO getAccessToken(OauthDto.LOGIN login) {
+    private HttpHeaders setHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        return httpHeaders;
+    }
+
+    @Override
+    public OauthDto.TOKEN_INFO getAccessToken(OauthDto.LOGIN login) {
+        HttpHeaders httpHeaders = setHeaders();
 
         OauthRequest oauthRequest = oauthRequestFactory.getRequest(login.getCode(), login.getProvider());
         HttpEntity<LinkedMultiValueMap<String, String>> request = new HttpEntity<>(oauthRequest.getMap(), httpHeaders);
@@ -127,8 +116,7 @@ public class OauthServiceImpl implements OauthService{
 
     @Override
     public OauthDto.PROFILE getProfile(String accessToken, String provider) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpHeaders httpHeaders = setHeaders();
         httpHeaders.set("Authorization", "Bearer " + accessToken);
 
         String profileUrl = oauthRequestFactory.getUrlProfile(provider);
@@ -139,7 +127,7 @@ public class OauthServiceImpl implements OauthService{
             if(response.getStatusCode() == HttpStatus.OK){
                 return checkProfile(response, provider);
             }
-        }catch (Exception e){
+        }catch (HttpClientErrorException | HttpServerErrorException e){
             throw new BadRequestException("프로필을 가져올 수 없습니다.");
         }
         throw new BadRequestException("프로필을 가져올 수 없습니다.");

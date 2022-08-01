@@ -2,15 +2,11 @@ package kr.co.popool.bblmember.service;
 
 import com.google.gson.Gson;
 import kr.co.popool.bblcommon.error.exception.BadRequestException;
-import kr.co.popool.bblcommon.error.exception.DuplicatedException;
-import kr.co.popool.bblcommon.error.model.ErrorCode;
 import kr.co.popool.bblmember.domain.dto.OauthDto;
+import kr.co.popool.bblmember.domain.entity.CorporateEntity;
 import kr.co.popool.bblmember.domain.entity.MemberEntity;
 import kr.co.popool.bblmember.domain.shared.OauthRequest;
 import kr.co.popool.bblmember.domain.shared.OauthRequestFactory;
-import kr.co.popool.bblmember.domain.shared.Phone;
-import kr.co.popool.bblmember.domain.shared.enums.Gender;
-import kr.co.popool.bblmember.domain.shared.enums.MemberRank;
 import kr.co.popool.bblmember.domain.shared.enums.MemberRole;
 import kr.co.popool.bblmember.infra.security.jwt.JwtProvider;
 import kr.co.popool.bblmember.repository.MemberRepository;
@@ -43,7 +39,6 @@ public class OauthServiceImpl implements OauthService{
 
     @Override
     public void saveAdditionalMemberInfo(OauthDto.CREATE create) {
-
         memberService.checkSignUp(create);
 
         MemberEntity memberEntity = MemberEntity.of(create, passwordEncoder, null);
@@ -52,6 +47,23 @@ public class OauthServiceImpl implements OauthService{
 
         memberRepository.save(memberEntity);
     }
+
+    @Override
+    public void saveAdditionalCorporateInfo(OauthDto.CREATE_CORPORATE create) {
+
+        memberService.checkSignUp(create.getCreateCorporate());
+
+        CorporateEntity corporateEntity = CorporateEntity.of(create.getCreateCorporate());
+
+        MemberEntity memberEntity = MemberEntity.of(create.getCreate(), passwordEncoder, corporateEntity);
+
+        memberEntity.saveOauth(create.getCreate().getEmail(),
+                create.getCreate().getProvider(),
+                create.getCreate().getName());
+
+        memberRepository.save(memberEntity);
+    }
+
 
     @Override
     @Transactional

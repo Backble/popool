@@ -26,7 +26,9 @@ public class CorporateEntity extends BaseEntity {
     private String businessName;
 
     @Builder
-    public CorporateEntity(String ceoName, String businessNumber, String businessName) {
+    public CorporateEntity(String ceoName,
+                           String businessNumber,
+                           String businessName) {
         this.ceoName = ceoName;
         this.businessNumber = businessNumber;
         this.businessName = businessName;

@@ -14,6 +14,11 @@ public class OAuthController {
 
     private final OauthServiceImpl oauthService;
 
+    @PostMapping("/kakao")
+    public ResponseFormat<String> getKey(){
+        return ResponseFormat.ok("https://kauth.kakao.com/oauth/authorize?client_id=dd9e4fedf13f64b018f9f2ec47207136&redirect_uri=http://localhost:8080/oauth/kakao/login&response_type=code");
+    }
+
     @ApiOperation("카카오 회원가입")
     @PostMapping("/kakao/login/singUp")
     public ResponseFormat signUpKakao(@RequestBody OauthDto.CREATE create){

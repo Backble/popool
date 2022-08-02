@@ -3,6 +3,7 @@ package kr.co.popool.bblmember.service;
 import kr.co.popool.bblmember.domain.dto.CorporateDto;
 import kr.co.popool.bblmember.domain.dto.MemberDto;
 import kr.co.popool.bblmember.domain.dto.OauthDto;
+import kr.co.popool.bblmember.domain.entity.MemberEntity;
 import kr.co.popool.bblmember.domain.shared.Phone;
 
 public interface MemberService {
@@ -34,6 +35,10 @@ public interface MemberService {
     boolean checkIdentity(String identity);
     boolean checkEmail(String email);
     boolean checkPhone(Phone phone);
+    boolean checkPhone(Phone phone, Phone oldPhone);
+    boolean checkPassword(MemberDto.CHECK_PW checkPw);
+    boolean checkPassword(String password, String oldPasword);
+    boolean checkDelete(MemberEntity memberEntity);
     void checkSignUp(MemberDto.CREATE create);
     void checkSignUp(OauthDto.CREATE create);
     void checkSignUp(CorporateDto.CREATE_CORPORATE create);

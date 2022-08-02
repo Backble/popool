@@ -112,7 +112,6 @@ public class OauthServiceImpl implements OauthService{
 
         OauthRequest oauthRequest = oauthRequestFactory.getRequest(login.getCode(), login.getProvider());
         HttpEntity<LinkedMultiValueMap<String, String>> request = new HttpEntity<>(oauthRequest.getMap(), httpHeaders);
-
         ResponseEntity<String> response = restTemplate.postForEntity(oauthRequest.getUrl(), request, String.class);
 
         try {

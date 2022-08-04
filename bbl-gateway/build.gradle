@@ -9,7 +9,11 @@ allprojects {
     version = "0.0.1-SNAPSHOT"
     sourceCompatibility = "11"
     targetCompatibility = "11"
+}
 
+jar {
+    enabled = false
+}
 
 repositories {
     mavenCentral()
@@ -41,7 +45,7 @@ dependencies {
         exclude group: ("org.junit.vintage"), module: ("junit-vintage-engine")
     }
 }
-}
+
 
 project (':gateway-server') {
     dependencies {

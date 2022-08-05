@@ -50,10 +50,9 @@ public class OauthServiceImpl implements OauthService{
 
     @Override
     public void saveAdditionalCorporateInfo(OauthDto.CREATE_CORPORATE create) {
+        memberService.checkSignUp(create.getCreate());
 
-        memberService.checkSignUp(create.getCreateCorporate());
-
-        CorporateEntity corporateEntity = CorporateEntity.of(create.getCreateCorporate());
+        CorporateEntity corporateEntity = CorporateEntity.of(create);
 
         MemberEntity memberEntity = MemberEntity.of(create.getCreate(), passwordEncoder, corporateEntity);
 

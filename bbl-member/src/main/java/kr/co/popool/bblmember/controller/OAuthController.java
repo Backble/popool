@@ -40,6 +40,27 @@ public class OAuthController {
         return ResponseFormat.ok();
     }
 
+    @ApiOperation("카카오 기업 회원가입")
+    @PostMapping("/kakao/login/singUp/corporate")
+    public ResponseFormat signUpCorporateKakao(@RequestBody OauthDto.CREATE_CORPORATE create){
+        oauthService.saveAdditionalCorporateInfo(create);
+        return ResponseFormat.ok();
+    }
+
+    @ApiOperation("네이버 기업 회원가입")
+    @PostMapping("/naver/login/singUp/corporate")
+    public ResponseFormat signUpCorporateNaver(@RequestBody OauthDto.CREATE_CORPORATE create){
+        oauthService.saveAdditionalCorporateInfo(create);
+        return ResponseFormat.ok();
+    }
+
+    @ApiOperation("구글 기업 회원가입")
+    @PostMapping("/google/login/singUp/corporate")
+    public ResponseFormat signUpCorporateGoogle(@RequestBody OauthDto.CREATE_CORPORATE create){
+        oauthService.saveAdditionalCorporateInfo(create);
+        return ResponseFormat.ok();
+    }
+
     @ApiOperation("카카오 로그인")
     @PostMapping("/kakao/login")
     public ResponseFormat<OauthDto.TOKEN_READ> loginKAKAO(@RequestBody OauthDto.LOGIN login){

@@ -26,7 +26,9 @@ public class CorporateEntity extends BaseEntity {
     private String businessName;
 
     @Builder
-    public CorporateEntity(String ceoName, String businessNumber, String businessName) {
+    public CorporateEntity(String ceoName,
+                           String businessNumber,
+                           String businessName) {
         this.ceoName = ceoName;
         this.businessNumber = businessNumber;
         this.businessName = businessName;
@@ -36,5 +38,13 @@ public class CorporateEntity extends BaseEntity {
         this.ceoName = update_corporate.getCeoName();
         this.businessName = update_corporate.getBusinessName();
         this.businessNumber = update_corporate.getBusinessNumber();
+    }
+
+    public static CorporateEntity of(CorporateDto.CREATE_CORPORATE create_corporate) {
+        return CorporateEntity.builder()
+                .ceoName(create_corporate.getCeoName())
+                .businessName(create_corporate.getBusinessName())
+                .businessNumber(create_corporate.getBusinessNumber())
+                .build();
     }
 }

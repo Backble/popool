@@ -61,7 +61,18 @@ public class OauthDto {
         private String memberRank;
     }
 
+    @Getter
     @Builder
+    @AllArgsConstructor
+    public static class CREATE_CORPORATE {
+        private CorporateDto.CREATE_CORPORATE createCorporate;
+
+        private OauthDto.CREATE create;
+    }
+
+
+
+        @Builder
     @Getter
     @AllArgsConstructor
     public static class TOKEN_READ {

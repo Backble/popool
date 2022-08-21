@@ -1,4 +1,4 @@
-package kr.co.popool.bblpayment.domain.entity;
+package kr.co.popool.bblpayment.domain.entity.item;
 
 import kr.co.popool.bblpayment.domain.shared.BaseEntity;
 import lombok.Getter;
@@ -18,12 +18,12 @@ import javax.persistence.*;
 public abstract class ItemMstEntity extends BaseEntity {
 
     @Column(nullable = false)
-    private int price;
+    protected int price;
 
     @Column(nullable = false)
-    private String name;
+    protected String name;
 
-    public ItemMstEntity(int price, String name) {
+    protected ItemMstEntity(int price, String name) {
         this.price = price;
         this.name = name;
     }

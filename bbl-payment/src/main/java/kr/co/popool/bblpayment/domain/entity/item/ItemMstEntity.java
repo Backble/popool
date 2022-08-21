@@ -1,5 +1,6 @@
 package kr.co.popool.bblpayment.domain.entity.item;
 
+import kr.co.popool.bblpayment.domain.dto.ItemDto;
 import kr.co.popool.bblpayment.domain.shared.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,6 @@ public abstract class ItemMstEntity extends BaseEntity {
         this.price = price;
         this.name = name;
     }
+
+    public abstract void update(ItemDto.UPDATE updateDto);
 }

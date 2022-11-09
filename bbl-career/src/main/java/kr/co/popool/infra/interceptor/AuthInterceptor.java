@@ -18,11 +18,11 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              @NotNull HttpServletResponse response,
-                             @NotNull Object handler){
+                             @NotNull Object handler) {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION)
-                .replace("Bearer", "").trim();
+            .replace("Bearer", "").trim();
 
-        if(token==null){
+        if (token == null) {
             return true;
         }
 
@@ -36,9 +36,9 @@ public class AuthInterceptor implements HandlerInterceptor {
     public void postHandle(@NotNull HttpServletRequest request,
                            @NotNull HttpServletResponse response,
                            @NotNull Object handler,
-                           ModelAndView modelAndView){
+                           ModelAndView modelAndView) {
 
-        if(MemberThreadLocal.get()==null){
+        if (MemberThreadLocal.get() == null) {
             return;
         }
 

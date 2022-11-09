@@ -9,20 +9,19 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum ScoreGrade {
 
-  GOLD("골드"),
-  SILVER("실버"),
-  BRONZE("브론즈"),
-  BLACK("블랙"),
+    GOLD("골드"),
+    SILVER("실버"),
+    BRONZE("브론즈"),
+    BLACK("블랙"),
+    WHITE("등급 없음");
 
-  WHITE("등급 없음");
+    private String grade;
 
-  private String grade;
-
-  public static ScoreGrade of(String grade) {
-    return Arrays.stream(ScoreGrade.values())
-        .filter(r -> r.toString().equalsIgnoreCase(grade))
-        .findAny().orElseThrow(() -> new RuntimeException("해당 등급 항목을 찾을 수 없습니다."));
-  }
+    public static ScoreGrade of(String grade) {
+        return Arrays.stream(ScoreGrade.values())
+            .filter(r -> r.toString().equalsIgnoreCase(grade))
+            .findAny().orElseThrow(() -> new RuntimeException("해당 등급 항목을 찾을 수 없습니다."));
+    }
 }
 
 

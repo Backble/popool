@@ -8,12 +8,12 @@ import lombok.*;
 import java.util.List;
 
 public class GradeDto {
-  @Builder
-  @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
-  public static class ONLYGRADE {
-    @ApiModelProperty(example = "평가 등급")
-    private ScoreGrade grade;
-  }
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ONLYGRADE {
+        @ApiModelProperty(example = "평가 등급")
+        private ScoreGrade grade;
+    }
 }

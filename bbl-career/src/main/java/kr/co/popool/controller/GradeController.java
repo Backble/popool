@@ -20,37 +20,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/careers/{memberIdentity}/scores/grade")
 public class GradeController {
 
-  private final GradeService gradeService;
-  private final CalculateGradeService calculateService;
+    private final GradeService gradeService;
+    private final CalculateGradeService calculateService;
 
-  @ApiOperation("개인 등급 조회")
-  @GetMapping("")
-  public ResponseFormat showGrade(@PathVariable String memberIdentity) {
-    return ResponseFormat.ok(gradeService.showGradeOnly(memberIdentity));
-  }
+    @ApiOperation("개인 등급 조회")
+    @GetMapping("")
+    public ResponseFormat showGrade(@PathVariable String memberIdentity) {
+        return ResponseFormat.ok(gradeService.showGradeOnly(memberIdentity));
+    }
 
-  @ApiOperation("개인 등급 상세 내역 조회")
-  @GetMapping("/all")
-  public ResponseFormat showGradeInfo(@PathVariable String memberIdentity) {
-    return ResponseFormat.ok(gradeService.showGradeDetail(memberIdentity));
-  }
+    @ApiOperation("개인 등급 상세 내역 조회")
+    @GetMapping("/all")
+    public ResponseFormat showGradeInfo(@PathVariable String memberIdentity) {
+        return ResponseFormat.ok(gradeService.showGradeDetail(memberIdentity));
+    }
 
 
-  public ResponseFormat createGrade(ScoreDto.SCOREINFO newScoreDto) {
+    public ResponseFormat createGrade(ScoreDto.SCOREINFO newScoreDto) {
 
-    GRADEDETAIL gradedetail = calculateService.calculateGradeDto(newScoreDto);
-    calculateService.saveGradeEntity(gradedetail, newScoreDto.getMemberIdentity());
+        GRADEDETAIL gradedetail = calculateService.calculateGradeDto(newScoreDto);
+        calculateService.saveGradeEntity(gradedetail, newScoreDto.getMemberIdentity());
 
-    return ResponseFormat.ok();
+        return ResponseFormat.ok();
 
-  }
+    }
 
-  public ResponseFormat updateGrade(DELETE deleteDto) {
+    public ResponseFormat updateGrade(DELETE deleteDto) {
 
-    GRADEDETAIL gradedetail = calculateService.updateGradeDto(deleteDto);
-    calculateService.saveGradeEntity(gradedetail, deleteDto.getMemberIdentity());
+        GRADEDETAIL gradedetail = calculateService.updateGradeDto(deleteDto);
+        calculateService.saveGradeEntity(gradedetail, deleteDto.getMemberIdentity());
 
-    return ResponseFormat.ok();
+        return ResponseFormat.ok();
 
-  }
+    }
 }

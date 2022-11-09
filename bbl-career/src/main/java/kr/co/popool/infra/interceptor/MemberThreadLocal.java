@@ -8,15 +8,15 @@ public class MemberThreadLocal {
         memberThreadLocal = new ThreadLocal<>();
     }
 
-    public static void set(String identity){
+    public static void set(String identity) {
         memberThreadLocal.set(identity);
     }
 
-    public static void remove(){
+    public static void remove() {
         memberThreadLocal.remove();
     }
 
-    public static String get(){
+    public static String get() {
         return memberThreadLocal.get();
     }
 }

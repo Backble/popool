@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class FilterExceptionHandler {
 
     @ExceptionHandler(JwtTokenExpiredException.class)
-    public ResponseEntity handlerJwtTokenExpiredException(JwtTokenExpiredException e){
+    public ResponseEntity handlerJwtTokenExpiredException(JwtTokenExpiredException e) {
         ResponseFormat responseFormat = ResponseFormat.expire();
 
         return new ResponseEntity(responseFormat, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(JwtTokenInvalidException.class)
-    public ResponseEntity handleJwtTokenInvalidException(JwtTokenInvalidException e){
+    public ResponseEntity handleJwtTokenInvalidException(JwtTokenInvalidException e) {
         ResponseFormat responseFormat = ResponseFormat.fail(e.getMessage());
 
         return new ResponseEntity(responseFormat, HttpStatus.OK);

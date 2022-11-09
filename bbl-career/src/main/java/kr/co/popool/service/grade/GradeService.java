@@ -9,15 +9,15 @@ import kr.co.popool.domain.entity.GradeEntity;
 
 public interface GradeService {
 
-  GRADEDETAIL showGradeDetail(String memberIdentity);
+    GRADEDETAIL showGradeDetail(String memberIdentity);
 
-  GradeDto.ONLYGRADE showGradeOnly(String memberIdentity);
+    GradeDto.ONLYGRADE showGradeOnly(String memberIdentity);
 
-  GradeEntity createGradeEntity(String memberIdentity, GRADEDETAIL gradeDto);
+    GradeEntity createGradeEntity(String memberIdentity, GRADEDETAIL gradeDto);
 
-  GETVALUE getValue(String memberIdentity);
+    GETVALUE getValue(String memberIdentity);
 
-  GRADEDETAIL createGradeDto(String memberIdentity,GETVALUE valueDto);
+    GRADEDETAIL createGradeDto(String memberIdentity, GETVALUE valueDto);
 
 
 }

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CareerRepository extends JpaRepository<CareerEntity, Long> {
 
-  Optional<CareerEntity> findByMemberIdentity(String memberIdentity);
+    Optional<CareerEntity> findByMemberIdentity(String memberIdentity);
 
 
 }

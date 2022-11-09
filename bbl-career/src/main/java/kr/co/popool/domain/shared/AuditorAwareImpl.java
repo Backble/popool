@@ -11,7 +11,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         String identity = MemberThreadLocal.get();
 
-        if(identity == null){
+        if (identity == null) {
             return null;
         }
 

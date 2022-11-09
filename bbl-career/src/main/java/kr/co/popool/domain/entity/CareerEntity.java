@@ -16,64 +16,64 @@ import javax.persistence.*;
 
 public class CareerEntity extends BaseEntity {
 
-  @Column(name = "member_identity", nullable = false, length = 100)
-  private String memberIdentity;
+    @Column(name = "member_identity", nullable = false, length = 100)
+    private String memberIdentity;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "grade")
-  private GradeEntity gradeEntity;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "grade")
+    private GradeEntity gradeEntity;
 
-  @Column(name = "name", nullable = false, length = 100)
-  private String name;
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
 
-  @Column(name = "period", nullable = false, length = 100)
-  private String period;
+    @Column(name = "period", nullable = false, length = 100)
+    private String period;
 
-  @Column(name = "context", nullable = true, length = 500)
-  private String context;
+    @Column(name = "context", nullable = true, length = 500)
+    private String context;
 
-  @Column(name = "history_id", nullable = true, length = 100)
-  private String historyId;
+    @Column(name = "history_id", nullable = true, length = 100)
+    private String historyId;
 
-  @Column(name = "file_path", nullable = true, length = 100)
-  private String filePath;
+    @Column(name = "file_path", nullable = true, length = 100)
+    private String filePath;
 
-  @Builder
-  public CareerEntity(String memberIdentity, GradeEntity gradeEntity, String name, String period,
-      String context, String historyId,String filePath) {
-    this.memberIdentity = memberIdentity;
-    this.gradeEntity = gradeEntity;
-    this.name = name;
-    this.period = period;
-    this.historyId = historyId;
-    this.context = context;
-    this.filePath = filePath;
+    @Builder
+    public CareerEntity(String memberIdentity, GradeEntity gradeEntity, String name, String period,
+                        String context, String historyId, String filePath) {
+        this.memberIdentity = memberIdentity;
+        this.gradeEntity = gradeEntity;
+        this.name = name;
+        this.period = period;
+        this.historyId = historyId;
+        this.context = context;
+        this.filePath = filePath;
 
-  }
+    }
 
-  public static CareerEntity of(CareerDto.CREATE newCareer) {
-    return CareerEntity.builder()
-        .memberIdentity(newCareer.getMemberIdentity())
-        .name(newCareer.getName())
-        .context(newCareer.getContext())
-        .period(newCareer.getPeriod())
-        .historyId(newCareer.getHistoryId())
-        .build();
-  }
+    public static CareerEntity of(CareerDto.CREATE newCareer) {
+        return CareerEntity.builder()
+            .memberIdentity(newCareer.getMemberIdentity())
+            .name(newCareer.getName())
+            .context(newCareer.getContext())
+            .period(newCareer.getPeriod())
+            .historyId(newCareer.getHistoryId())
+            .build();
+    }
 
-  public void updateCareer(CareerDto.UPDATE careerUpdate) {
-    this.name = careerUpdate.getName();
-    this.period = careerUpdate.getPeriod();
-    this.context = careerUpdate.getContext();
-    this.historyId = careerUpdate.getHistoryId();
-  }
+    public void updateCareer(CareerDto.UPDATE careerUpdate) {
+        this.name = careerUpdate.getName();
+        this.period = careerUpdate.getPeriod();
+        this.context = careerUpdate.getContext();
+        this.historyId = careerUpdate.getHistoryId();
+    }
 
-  public void createGrade(GradeEntity gradeEntity) {
-    this.gradeEntity = gradeEntity;
-  }
+    public void createGrade(GradeEntity gradeEntity) {
+        this.gradeEntity = gradeEntity;
+    }
 
-  public void updateFile(String filePath) {
+    public void updateFile(String filePath) {
 
-    this.filePath = filePath;
-  }
+        this.filePath = filePath;
+    }
 }

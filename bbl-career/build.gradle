@@ -16,28 +16,30 @@ dependencyManagement {
 }
 
 dependencies {
+	//spring
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
-
+	//test
 	implementation 'junit:junit:4.13.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//msa
 
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-
+	//queryDsl
 	implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '5.0.0'
 	implementation group: 'com.querydsl', name: 'querydsl-core', version: '5.0.0'
 	implementation group: 'com.querydsl', name: 'querydsl-apt', version: '5.0.0'
 
 	runtimeOnly 'mysql:mysql-connector-java'
 	implementation project(path: ":bbl-common")
-
+	//lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
 
 }
 

@@ -25,9 +25,9 @@ public class KakaoPayService {
 
     private final String CID = "TC0ONETIME";
 
-    private final String APPROVAL_URL = "http://localhost:8080/payments/kakao/success";
-    private final String FAIL_URL = "http://localhost:8080/payments/kakao/fail";
-    private final String CANCEL_URL = "http://localhost:8080/payments/kakao/cancel";
+    private final String APPROVAL_URL = "http://bblmember-env.eba-7mvxcw8b.ap-northeast-2.elasticbeanstalk.com/payments/kakao/success";
+    private final String FAIL_URL = "http://bblmember-env.eba-7mvxcw8b.ap-northeast-2.elasticbeanstalk.com/payments/kakao/fail";
+    private final String CANCEL_URL = "http://bblmember-env.eba-7mvxcw8b.ap-northeast-2.elasticbeanstalk.com/payments/kakao/cancel";
 
     @Transactional
     public void requestPayment(KakaoPayDTO.ORDER orderDTO) throws Exception {
